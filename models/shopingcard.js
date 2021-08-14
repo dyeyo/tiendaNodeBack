@@ -1,27 +1,54 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ShopingCard extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
-  ShopingCard.init({
-    dateOrder: DataTypes.STRING,
-    state: DataTypes.INTEGER,
-    total: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ShopingCard',
-  });
+  const ShopingCard = sequelize.define(
+    'shopingCard',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      dateOrder: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      state: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      total: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+    },
+    {
+      tableName: 'shopingCard',
+    },
+  );
+
+  ShopingCard.associate = (models) => {
+    ShopingCard.hasOne(models.Products, {
+      foreignKey: {
+        name: 'id',
+        field: 'id',
+      },
+      as: 'Products',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+  }
+
+  ShopingCard.associate = (models) => {
+    ShopingCard.hasOne(models.Users, {
+      foreignKey: {
+        name: 'id',
+        field: 'id',
+      },
+      as: 'Users',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+  }
+
   return ShopingCard;
-};
+}

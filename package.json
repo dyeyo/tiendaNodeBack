@@ -8,16 +8,19 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
+    "express-validator": "^6.12.1",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
     "sequelize": "^6.6.5"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js",
+    "migrate:refresh": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
